@@ -31,7 +31,14 @@ difficultyBtns.addEventListener('click', function (evt) {
 resetBtn.addEventListener('click', init)
 
 playArea.addEventListener('click', function (evt) {
-  console.log(evt.target)
+  
+  if (
+    !isNaN(parseInt(evt.target.id)) &&
+    cards[parseInt(evt.target.id)]['faceDown'] && 
+    !waitingForTimeout
+  ) {
+    handleCardClick(parseInt(evt.target.id))
+  }
 })
 
 
@@ -58,10 +65,40 @@ function tick() {
   seconds++
 }
 
-function handleCardClick() {
-  // if turn is 1, handle the first card being picked
-  // if turn is -1 handle the second card being picked
+function handleCardClick(cardIdx) {
+  if (turn === 1) {
+    message = 'Find the match!'
+    card1Idx = cardIdx
+    card1Val = cards[card1Idx]['faceDown']
+    cards[card1Idx] = {'currentPick': card1Val}
+  } else {
+    card2Idx = cardIdx
+    card2Val = cards[card2Idx]['faceDown']
+    cards[card2Idx] = {'currentPick': card2Val}
+    waitingForTimeout = true
+    setTimeout(function() {
+      compareCards(card1Val, card2Val)
+    }, 1000)
+  }
   turn *= -1
+  render()
+}
+
+function compareCards(card1Val, card2Val) {
+  if (card1Val === card2Val) {
+    matchesRemaining -= 1
+    message = `Nice work! ${matchesRemaining} pair${matchesRemaining !== 1 ? 's' : ''} left!`
+    if (matchesRemaining === 0) {
+      message = `Congratulations, you found all the matches in ${Math.floor(seconds/60)}:${seconds}`
+      clearInterval(tickInterval)
+    }
+  } else {
+    message = 'Try again!'
+    cards[card1Idx] = {'faceDown': card1Val}
+    cards[card2Idx] = {'faceDown': card2Val}
+  }
+  waitingForTimeout = false
+  render()
 }
 
 function setDifficulty(numCards) {
@@ -83,12 +120,12 @@ function shuffle(cardsIn) {
     cardToShuffle = cardsIn.splice(Math.random() * cardsIn.length, 1)
     cards.push({'faceDown': `${cardToShuffle}`})
   }
-  console.log(cards)
   render()
 }
 
 function render() {
   messageEl.textContent = message
+  playArea.innerHTML = ''
   let appendCard
   cards.forEach(function(card, idx) {
     appendCard = document.createElement("div")
@@ -104,26 +141,3 @@ function render() {
   })
 }
 
-// Write an init function
-//   - set state variables to initial state
-// Write a function to set difficulty
-// Write a function to handle clicking on a card
-//   - Based on 1st/2nd click --> different functionality
-//   (compare card function?)
-// Write a render function to display the state of the game
-//   - Face down
-//   - Face up (and not matched)
-//   - Matched (stay face up)
-// Write a function to handle incrementing a timer
-
-
-
-/*-------------------------------- User Stories --------------------------------*/
-//// AAU, I should be able to select a difficulty level.
-//// AAU, I should see more cards if I pick a higher difficulty.
-//// AAU, I should be able to reset the game with a 'reset' button.
-// AAU, I should be able to see the value of a card when it is clicked.
-// AAU, if I make a match, the cards should remain face-up.
-// AAU, if I do not make a match, the cards should flip back over, after a short delay.
-// AAU, I should see the number of remaining matches after making my first match.
-// AAU, I should see the total time it took to make all the matches.

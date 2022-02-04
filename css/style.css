@@ -1,0 +1,46 @@
+body {
+  background-color: lightslategray;
+  display: block;
+  text-align: center;
+}
+
+nav {
+  margin-bottom: 2vw;
+}
+
+#nav-title {
+  font-size: 4vw;
+  color: white;
+}
+
+#reset-button {
+  margin-bottom: 3vw;
+}
+
+#difficulty-buttons {
+  margin-bottom: 3vw;
+}
+
+.hidden {
+  display: none;
+}
+
+.btn {
+  margin-right: 2vw;
+  font-size: 3vw;
+}
+
+#message {
+  margin-bottom: 2vw;
+  font-size: 5vw;
+}
+
+#play-area {
+  display: grid;
+  justify-items: center;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.card.large {
+  font-size: 4vw; 
+}

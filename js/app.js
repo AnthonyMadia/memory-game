@@ -24,6 +24,7 @@ difficultyBtns.addEventListener('click', function (evt) {
   if (evt.target.classList.contains('btn')) {
     difficultyBtns.classList.add("hidden")
     resetDiv.classList.remove("hidden")
+    setDifficulty(difficulty[evt.target.id])
   }
 })
 
@@ -63,9 +64,24 @@ function handleCardClick() {
   turn *= -1
 }
 
-function setDifficulty() {
-  // accept value of cards to add to card deck 
-  // set matchesRemaining based on difficulty selected
+function setDifficulty(numCards) {
+  message = 'Pick a card!'
+  let deckCopy = [...deck]
+  let randomCard
+  let cardsToShuffle = []
+  for (let i = 0; i < numCards; i++) {
+    randomCard = deckCopy.splice(Math.random() * deckCopy.length , 1)[0]
+    cardsToShuffle.push(randomCard, randomCard)
+  }
+  matchesRemaining = numCards
+  shuffle(cardsToShuffle)
+}
+
+function shuffle(cardsIn) {
+  // shuffle cards passed in
+  console.log(cardsIn)
+  // set cards array using the newly shuffled items
+  render()
 }
 
 function render() {
@@ -90,7 +106,7 @@ function render() {
 /*-------------------------------- User Stories --------------------------------*/
 // AAU, I should be able to select a difficulty level.
 // AAU, I should see more cards if I pick a higher difficulty.
-// AAU, I should be able to reset the game with a 'reset' button.
+// // AAU, I should be able to reset the game with a 'reset' button.
 // AAU, I should be able to see the value of a card when it is clicked.
 // AAU, if I make a match, the cards should remain face-up.
 // AAU, if I do not make a match, the cards should flip back over, after a short delay.

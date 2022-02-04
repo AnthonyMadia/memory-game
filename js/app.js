@@ -20,10 +20,38 @@ const playArea = document.getElementById('play-area')
 const resetBtn = document.getElementById('reset-button')
 
 /*----------------------------- Event Listeners -----------------------------*/
+difficultyBtns.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('btn')) {
+    difficultyBtns.classList.add("hidden")
+    resetDiv.classList.remove("hidden")
+  }
+})
 
+resetBtn.addEventListener('click', init)
+
+playArea.addEventListener('click', function (evt) {
+  console.log(evt.target)
+})
 
 
 /*-------------------------------- Functions --------------------------------*/
+
+init()
+
+function init() {
+  console.log('init invoked')
+  difficultyBtns.classList.remove("hidden")
+  resetDiv.classList.add("hidden")
+  render()
+}
+
+function handleCardClick() {
+
+}
+
+function render() {
+  console.log('render invoked')
+}
 
 // Write an init function
 //   - set state variables to initial state

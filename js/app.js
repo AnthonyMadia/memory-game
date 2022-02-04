@@ -88,8 +88,20 @@ function shuffle(cardsIn) {
 }
 
 function render() {
-  console.log('render invoked')
   messageEl.textContent = message
+  let appendCard
+  cards.forEach(function(card, idx) {
+    appendCard = document.createElement("div")
+    appendCard.id = idx
+    if (card['faceDown']) {
+      appendCard.className = "card large back-blue"
+    } else if (card['currentPick']) {
+      appendCard.className = `card large ${card['currentPick']}`
+    } else if (card['matched']) {
+      appendCard.className = `card large ${card['matched']}`
+    }
+    playArea.appendChild(appendCard)
+  })
 }
 
 // Write an init function
@@ -107,9 +119,9 @@ function render() {
 
 
 /*-------------------------------- User Stories --------------------------------*/
-// AAU, I should be able to select a difficulty level.
-// AAU, I should see more cards if I pick a higher difficulty.
-// // AAU, I should be able to reset the game with a 'reset' button.
+//// AAU, I should be able to select a difficulty level.
+//// AAU, I should see more cards if I pick a higher difficulty.
+//// AAU, I should be able to reset the game with a 'reset' button.
 // AAU, I should be able to see the value of a card when it is clicked.
 // AAU, if I make a match, the cards should remain face-up.
 // AAU, if I do not make a match, the cards should flip back over, after a short delay.

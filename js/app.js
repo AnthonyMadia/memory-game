@@ -39,18 +39,38 @@ playArea.addEventListener('click', function (evt) {
 init()
 
 function init() {
-  console.log('init invoked')
   difficultyBtns.classList.remove("hidden")
   resetDiv.classList.add("hidden")
+  message = 'Please select difficulty:'
+  waitingForTimeout = false
+  turn = 1
+  playArea.innerHTML = ''
+  cards = []
+  matchesRemaining = 0
+  seconds = 0
+  clearInterval(tickInterval)
+  tickInterval = setInterval(tick, 1000)
   render()
 }
 
-function handleCardClick() {
+function tick() {
+  seconds++
+}
 
+function handleCardClick() {
+  // if turn is 1, handle the first card being picked
+  // if turn is -1 handle the second card being picked
+  turn *= -1
+}
+
+function setDifficulty() {
+  // accept value of cards to add to card deck 
+  // set matchesRemaining based on difficulty selected
 }
 
 function render() {
   console.log('render invoked')
+  messageEl.textContent = message
 }
 
 // Write an init function

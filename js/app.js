@@ -82,15 +82,27 @@ function shuffle(cardsIn) {
   let cardToShuffle 
   for (let i = 0; i = cardsIn.length; i++) {
     cardToShuffle = cardsIn.splice(Math.random() * cardsIn.length, 1)
-    cards.push({'faceDown': `${cardToShuffle}`})
+    cards.push({'cardDown': `${cardToShuffle}`})
   }
   console.log(cards)
   render()
 }
 
 function render() {
-  console.log('render invoked')
   messageEl.textContent = message
+  let appendCard
+  cards.forEach(function(card, idx) {
+    appendCard = document.createElement("div")
+    appendCard.id = idx
+    if (card['faceDown']) {
+      appendCard.className = "card large back-blue"
+    } else if (card['currentPick']) {
+      appendCard.className = `card large ${card['currentPick']}`
+    } else if (card['matched']) {
+      appendCard.className = `card large ${card['matched']}`
+    }
+    playArea.appendChild(appendCard)
+  })
 }
 
 

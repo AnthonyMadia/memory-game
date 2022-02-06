@@ -79,11 +79,13 @@ function setDifficulty(numCards) {
 }
 
 function shuffle(cardsIn) {
-  // shuffle cards passed in 
-  console.log(cardsIn)
-  // set cards array using the newly shuffled items
-  render() 
-  
+  let cardToShuffle 
+  for (let i = 0; i = cardsIn.length; i++) {
+    cardToShuffle = cardsIn.splice(Math.random() * cardsIn.length, 1)
+    cards.push({'faceDown': `${cardToShuffle}`})
+  }
+  console.log(cards)
+  render()
 }
 
 function render() {

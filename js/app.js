@@ -13,18 +13,47 @@ let cards, message, matchesRemaining, turn, seconds, tickInterval, waitingForTim
 
 
 /*------------------------ Cached Element References ------------------------*/
-
-
-/*----------------------------- Event Listeners -----------------------------*/
 const resetDiv = document.getElementById('reset-div')
 const difficultyBtns = document.getElementById('difficulty-buttons')
 const messageEl = document.getElementById('message')
 const playArea = document.getElementById('play-area')
 const resetBtn = document.getElementById('reset-button')
 
+/*----------------------------- Event Listeners -----------------------------*/
+
+difficultyBtns.addEventListener('click', function(evt) {
+  if (evt.target.classList.contains("btn")) {
+    difficultyBtns.classList.add("hidden")
+    resetDiv.classList.remove("hidden")
+  }
+})
+resetBtn.addEventListener('click', init)
+
+playArea.addEventListener('click', function(evt) {
+  console.log(evt.target)
+})
 
 
 /*-------------------------------- Functions --------------------------------*/
+init()
+
+function init() {
+
+  difficultyBtns.classList.remove("hidden")
+  resetDiv.classList.add("hidden")
+
+  render()
+}
+
+function handleCardClick() {
+
+}
+
+function render() {
+  console.log('render invoked')
+}
+
+
 // PsuedoCode:
 // Write init function
 //   - set state variables to initial state

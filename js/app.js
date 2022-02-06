@@ -25,6 +25,7 @@ difficultyBtns.addEventListener('click', function(evt) {
   if (evt.target.classList.contains("btn")) {
     difficultyBtns.classList.add("hidden")
     resetDiv.classList.remove("hidden")
+    setDifficulty(difficulty[evt.target.id])
   }
 })
 resetBtn.addEventListener('click', init)
@@ -64,9 +65,25 @@ function handleCardClick() {
   turn *= -1
 }
 
-function setDifficulty() {
-  // accept value of cards to add to card deck 
-  // set matchesReamining based on difficulty selected
+function setDifficulty(numCards) {
+  message = 'Pick a card!'
+  let deckCopy = [...deck]
+  let randomCard
+  let cardsToShuffle = []
+  for (let i = 0; i < numCards; i++) {
+    randomCard = deckCopy.splice(Math.random() * deckCopy.length , 1)[0]
+    cardsToShuffle.push(randomCard, randomCard)
+  }
+  matchesRemaining = numCards
+  shuffle(cardsToShuffle)
+}
+
+function shuffle(cardsIn) {
+  // shuffle cards passed in 
+  console.log(cardsIn)
+  // set cards array using the newly shuffled items
+  render() 
+  
 }
 
 function render() {
